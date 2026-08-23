@@ -13,10 +13,10 @@ Run the frontend from `client/` and the backend from `server/`.
 
 ## Free deployment
 
-- Deploy `server/` as a Docker Space on Hugging Face.
+- Deploy `server/` as a free Docker Web Service on Render using `render.yaml`.
 - Deploy `client/` on Vercel with Root Directory set to `client`.
-- In Vercel, set `NEXT_PUBLIC_BACKEND_API_URL` to the public `.hf.space` backend URL.
+- In Vercel, set `NEXT_PUBLIC_BACKEND_API_URL` to the public `.onrender.com` backend URL.
 - In Vercel, set `NEXT_PUBLIC_SITE_URL` to the final Vercel or custom-domain URL.
-- In Hugging Face, set `ALLOWED_ORIGINS` to the exact Vercel production URL and keep `MONGO_URI` and `GEMINI_API_KEY` in Secrets.
+- In Render, set `ALLOWED_ORIGINS` to the exact Vercel production URL and keep `MONGO_URI` and `GEMINI_API_KEY` in environment secrets.
 
 The live demos upload directly from the browser to the backend. Video and audio files are capped at 25 MB to fit the free CPU hosting profile more reliably.

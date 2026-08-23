@@ -18,7 +18,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN mkdir -p ${HF_HOME} && chown -R user:user /home/user
 
 USER user
-RUN python -c "from huggingface_hub import snapshot_download; snapshot_download('Systran/faster-whisper-base')"
+RUN python -c "from huggingface_hub import snapshot_download; snapshot_download('Systran/faster-whisper-tiny')"
 
 COPY --chown=user:user . .
 

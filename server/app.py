@@ -16,7 +16,7 @@ from projects import food_blueprint, music_blueprint, music_model_status
 
 ALLOWED_EXTENSIONS = {"mp4", "mov", "mkv", "webm", "avi", "m4v"}
 MAX_UPLOAD_MB = int(os.getenv("MAX_UPLOAD_MB", "25"))
-WHISPER_MODEL = os.getenv("WHISPER_MODEL", "base")
+WHISPER_MODEL = os.getenv("WHISPER_MODEL", "tiny")
 WHISPER_DEVICE = os.getenv("WHISPER_DEVICE", "cpu")
 WHISPER_COMPUTE_TYPE = os.getenv(
     "WHISPER_COMPUTE_TYPE",

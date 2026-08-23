@@ -1,15 +1,3 @@
----
-title: Le Thanh Tung Portfolio AI API
-emoji: 🎧
-colorFrom: green
-colorTo: gray
-sdk: docker
-app_port: 8080
-pinned: false
-models:
-  - Systran/faster-whisper-base
----
-
 # Portfolio Projects API
 
 One hosting-ready Flask service for the three portfolio projects: Subtitle AI, Music Genre Classification, and Food Ordering Analytics.
@@ -63,26 +51,26 @@ Set `MONGO_URI` to a MongoDB Atlas connection string for the Food API. Never com
 ```powershell
 docker build -t subtitle-api .
 docker run --rm -p 8080:8080 `
-  -e WHISPER_MODEL=base `
+  -e WHISPER_MODEL=tiny `
   -e WHISPER_DEVICE=cpu `
   -e ALLOWED_ORIGINS=http://localhost:3000 `
   portfolio-api
 ```
 
-The Docker image preloads the base Faster-Whisper model, so the first transcription does not need a model download.
+The Docker image preloads the tiny Faster-Whisper model, so the first transcription does not need a model download.
 
-## Deploy free on Hugging Face Spaces
+## Deploy free on Render
 
-Create a new Space and select **Docker** as the SDK. Put the contents of this `server` directory at the root of the Space repository; the YAML block at the top of this README configures port `8080`.
+Use the root `render.yaml` Blueprint or create a Web Service from the GitHub repository with these settings:
 
-Add these values under **Settings → Variables and secrets**:
+- Runtime: Docker
+- Root directory: `server`
+- Instance type: Free
+- Health check: `/health`
 
-- Variable `ALLOWED_ORIGINS`: the exact Vercel production URL, for example `https://your-project.vercel.app`.
-- Variable `FOOD_DB_NAME`: `TungFoodDB`.
-- Secret `MONGO_URI`: the MongoDB Atlas connection string.
-- Optional secret `GEMINI_API_KEY`, plus variable `ENABLE_GEMINI_CORRECTION=true`, only when transcript correction is needed.
+Set `ALLOWED_ORIGINS` to the exact Vercel production URL and keep `MONGO_URI` and optional `GEMINI_API_KEY` in Render environment secrets. The public `onrender.com` service URL becomes the Vercel value `NEXT_PUBLIC_BACKEND_API_URL`.
 
-Use the public Space URL ending in `.hf.space` as the frontend value `NEXT_PUBLIC_BACKEND_API_URL`. Free CPU Spaces can sleep when unused, so the first request after an idle period may take longer.
+The Free instance has limited memory and sleeps when idle, so this profile uses the smaller Whisper `tiny` model. The first request after an idle period may take about a minute longer.
 
 ## Deploy to Cloud Run
 
