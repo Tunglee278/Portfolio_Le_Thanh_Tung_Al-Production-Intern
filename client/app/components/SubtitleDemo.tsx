@@ -1,11 +1,12 @@
 'use client';
 
 import { FormEvent, useRef, useState } from 'react';
+import { buildApiUrl } from '../lib/api';
 
 type OutputType = 'srt' | 'video';
 type RequestState = 'idle' | 'processing' | 'success' | 'error';
 
-const MAX_FILE_SIZE = 250 * 1024 * 1024;
+const MAX_FILE_SIZE = 25 * 1024 * 1024;
 
 function formatFileSize(bytes: number) {
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
@@ -19,7 +20,6 @@ export default function SubtitleDemo() {
   const [message, setMessage] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const abortRef = useRef<AbortController | null>(null);
-  const apiUrl = '/api';
 
   function chooseFile(selectedFile?: File) {
     setMessage('');
@@ -33,7 +33,7 @@ export default function SubtitleDemo() {
     if (selectedFile.size > MAX_FILE_SIZE) {
       setFile(null);
       setRequestState('error');
-      setMessage('Video must be smaller than 250 MB.');
+      setMessage('Video must be smaller than 25 MB.');
       if (inputRef.current) inputRef.current.value = '';
       return;
     }
@@ -59,14 +59,14 @@ export default function SubtitleDemo() {
     body.append('output', output);
 
     try {
-      const response = await fetch(`${apiUrl}/v1/subtitles`, {
+      const response = await fetch(buildApiUrl('/v1/subtitles'), {
         method: 'POST',
         body,
         signal: controller.signal,
       });
 
       if (!response.ok) {
-        const payload = await response.json().catch(() => null);
+        const payload = await response.json().catch(() => null) as { error?: string } | null;
         throw new Error(payload?.error || `Request failed with status ${response.status}.`);
       }
 
@@ -103,7 +103,7 @@ export default function SubtitleDemo() {
     <form className="demoConsole" onSubmit={submit}>
       <div className="consoleBar">
         <span><i /> LIVE PIPELINE</span>
-        <span>SAME-ORIGIN API</span>
+        <span>CLOUD API</span>
       </div>
 
       <label
@@ -125,7 +125,7 @@ export default function SubtitleDemo() {
         {file ? (
           <span className="fileDetails"><strong>{file.name}</strong><small>{formatFileSize(file.size)} · READY TO PROCESS</small></span>
         ) : (
-          <span className="fileDetails"><strong>Drop a video here</strong><small>OR CLICK TO BROWSE · MP4, MOV, MKV, WEBM · MAX 250 MB</small></span>
+          <span className="fileDetails"><strong>Drop a video here</strong><small>OR CLICK TO BROWSE · MP4, MOV, MKV, WEBM · MAX 25 MB</small></span>
         )}
       </label>
 

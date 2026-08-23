@@ -15,8 +15,8 @@ from projects import food_blueprint, music_blueprint, music_model_status
 
 
 ALLOWED_EXTENSIONS = {"mp4", "mov", "mkv", "webm", "avi", "m4v"}
-MAX_UPLOAD_MB = int(os.getenv("MAX_UPLOAD_MB", "250"))
-WHISPER_MODEL = os.getenv("WHISPER_MODEL", "medium")
+MAX_UPLOAD_MB = int(os.getenv("MAX_UPLOAD_MB", "25"))
+WHISPER_MODEL = os.getenv("WHISPER_MODEL", "base")
 WHISPER_DEVICE = os.getenv("WHISPER_DEVICE", "cpu")
 WHISPER_COMPUTE_TYPE = os.getenv(
     "WHISPER_COMPUTE_TYPE",
@@ -39,6 +39,15 @@ app.register_blueprint(food_blueprint)
 app.register_blueprint(music_blueprint)
 
 _model_lock = threading.Lock()
+
+
+@app.get("/")
+def index():
+    return jsonify(
+        service="Le Thanh Tung Portfolio AI API",
+        status="ok",
+        health="/health",
+    )
 
 
 @lru_cache(maxsize=1)

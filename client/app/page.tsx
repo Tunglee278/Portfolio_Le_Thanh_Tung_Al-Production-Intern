@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import SubtitleDemo from './components/SubtitleDemo';
 import FoodAnalyticsDemo from './components/FoodAnalyticsDemo';
 import MusicDemo from './components/MusicDemo';
@@ -47,7 +48,7 @@ export default function Home() {
           {projects.map((project) => (
             <article className={`projectCard ${project.tone}`} key={project.number}>
               <div className="cardTop"><span className="projectNumber">/{project.number}</span><span className="period">{project.period}</span></div>
-              <div className="projectVisual"><img src={project.image} alt={project.imageAlt} loading="lazy" /></div>
+              <div className="projectVisual"><Image src={project.image} alt={project.imageAlt} fill sizes="(max-width: 800px) 100vw, 50vw" /></div>
               <h3>{project.title}</h3><p>{project.summary}</p>
               <div className="tags" aria-label="Technologies used">{project.stack.map((tech) => <span key={tech}>{tech}</span>)}</div>
               <div className="impact"><span aria-hidden="true">↳</span> {project.impact}</div>

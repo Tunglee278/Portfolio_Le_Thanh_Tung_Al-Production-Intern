@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { buildApiUrl } from '../lib/api';
 
 type Category = { category: string; products: number };
 type Summary = { orders: number; revenue: number; products: number; categories: Category[] };
@@ -17,10 +18,10 @@ export default function FoodAnalyticsDemo() {
   async function loadSummary() {
     setLoading(true);
     try {
-      const response = await fetch('/api/v1/food/analytics/summary', { cache: 'no-store' });
-      const payload = await response.json();
+      const response = await fetch(buildApiUrl('/v1/food/analytics/summary'), { cache: 'no-store' });
+      const payload = await response.json().catch(() => ({})) as Partial<Summary> & { error?: string };
       if (!response.ok) throw new Error(payload.error || 'Analytics API is unavailable.');
-      setSummary(payload);
+      setSummary(payload as Summary);
       setMessage('Live aggregate from MongoDB order and product collections.');
     } catch (error) {
       setSummary(null);
@@ -30,7 +31,10 @@ export default function FoodAnalyticsDemo() {
     }
   }
 
-  useEffect(() => { void loadSummary(); }, []);
+  useEffect(() => {
+    const initialLoad = window.setTimeout(() => void loadSummary(), 0);
+    return () => window.clearTimeout(initialLoad);
+  }, []);
 
   return (
     <section className="labPanel foodPanel" aria-label="Food ordering analytics demo">

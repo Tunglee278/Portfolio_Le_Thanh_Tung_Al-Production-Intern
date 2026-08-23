@@ -2,10 +2,12 @@ FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PORT=8080
+    PORT=8080 \
+    HF_HOME=/home/user/.cache/huggingface
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ffmpeg libgomp1 \
+    && useradd --create-home --uid 1000 user \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -13,7 +15,12 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+RUN mkdir -p ${HF_HOME} && chown -R user:user /home/user
+
+USER user
+RUN python -c "from huggingface_hub import snapshot_download; snapshot_download('Systran/faster-whisper-base')"
+
+COPY --chown=user:user . .
 
 EXPOSE 8080
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { FormEvent, useRef, useState } from 'react';
+import { buildApiUrl } from '../lib/api';
 
 type Prediction = { genre: string; confidence: number };
 type MusicResult = {
@@ -10,7 +11,7 @@ type MusicResult = {
   top_predictions: Prediction[];
 };
 
-const MAX_AUDIO_SIZE = 60 * 1024 * 1024;
+const MAX_AUDIO_SIZE = 25 * 1024 * 1024;
 
 export default function MusicDemo() {
   const [file, setFile] = useState<File | null>(null);
@@ -26,7 +27,7 @@ export default function MusicDemo() {
     if (selected.size > MAX_AUDIO_SIZE) {
       setFile(null);
       setStatus('error');
-      setMessage('Audio must be smaller than 60 MB.');
+      setMessage('Audio must be smaller than 25 MB.');
       if (inputRef.current) inputRef.current.value = '';
       return;
     }
@@ -48,12 +49,12 @@ export default function MusicDemo() {
     setMessage('Extracting MFCC features and running the classifier…');
 
     try {
-      const response = await fetch('/api/v1/music/classify', { method: 'POST', body });
-      const payload = await response.json();
+      const response = await fetch(buildApiUrl('/v1/music/classify'), { method: 'POST', body });
+      const payload = await response.json().catch(() => ({})) as Partial<MusicResult> & { error?: string };
       if (!response.ok) throw new Error(payload.error || 'Classification failed.');
-      setResult(payload);
+      setResult(payload as MusicResult);
       setStatus('idle');
-      setMessage(`Analyzed ${payload.analyzed_seconds.toFixed(1)} seconds of audio.`);
+      setMessage(`Analyzed ${(payload.analyzed_seconds ?? 0).toFixed(1)} seconds of audio.`);
     } catch (error) {
       setStatus('error');
       setMessage(error instanceof Error ? error.message : 'Could not reach the classifier.');
@@ -67,7 +68,7 @@ export default function MusicDemo() {
         <input ref={inputRef} type="file" accept="audio/*,.wav,.mp3,.ogg,.flac,.m4a,.aac" onChange={(event) => chooseFile(event.target.files?.[0])} />
         <span aria-hidden="true">♫</span>
         <strong>{file?.name || 'Choose an audio track'}</strong>
-        <small>WAV, MP3, FLAC, M4A · MAX 60 MB</small>
+        <small>WAV, MP3, FLAC, M4A · MAX 25 MB</small>
       </label>
       {result && (
         <div className="genreResult">

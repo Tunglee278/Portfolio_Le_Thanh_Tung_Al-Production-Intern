@@ -4,9 +4,10 @@ import './globals.css';
 
 const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 const geistMono = Geist_Mono({ variable: '--font-geist-mono', subsets: ['latin'] });
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://le-thanh-tung-ai-portfolio.trankien0203.chatgpt.site'),
+  metadataBase: new URL(siteUrl),
   title: 'Le Thanh Tung — AI Engineer',
   description: 'AI Engineer building production-minded systems across speech, computer vision, RAG and data.',
   openGraph: {

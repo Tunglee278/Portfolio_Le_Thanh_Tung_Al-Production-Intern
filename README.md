@@ -3,10 +3,20 @@
 ## Project structure
 
 ```text
-client/              Next.js/Vinext portfolio frontend
-server/              Flask + Faster-Whisper backend
+client/              Next.js portfolio frontend
+server/              Flask + Faster-Whisper Docker backend
 server/middlewares/  CORS and API error middleware
 social-card-output/  Generated social preview source
 ```
 
 Run the frontend from `client/` and the backend from `server/`.
+
+## Free deployment
+
+- Deploy `server/` as a Docker Space on Hugging Face.
+- Deploy `client/` on Vercel with Root Directory set to `client`.
+- In Vercel, set `NEXT_PUBLIC_BACKEND_API_URL` to the public `.hf.space` backend URL.
+- In Vercel, set `NEXT_PUBLIC_SITE_URL` to the final Vercel or custom-domain URL.
+- In Hugging Face, set `ALLOWED_ORIGINS` to the exact Vercel production URL and keep `MONGO_URI` and `GEMINI_API_KEY` in Secrets.
+
+The live demos upload directly from the browser to the backend. Video and audio files are capped at 25 MB to fit the free CPU hosting profile more reliably.

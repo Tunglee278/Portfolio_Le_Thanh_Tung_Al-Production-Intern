@@ -15,7 +15,7 @@ MODEL_DIRECTORY = Path(__file__).resolve().parent / "models"
 MODEL_PATH = MODEL_DIRECTORY / "model.pkl"
 SCALER_PATH = MODEL_DIRECTORY / "scaler.pkl"
 ALLOWED_AUDIO_EXTENSIONS = {"wav", "mp3", "ogg", "flac", "m4a", "aac"}
-MAX_MUSIC_UPLOAD_MB = int(os.getenv("MAX_MUSIC_UPLOAD_MB", "60"))
+MAX_MUSIC_UPLOAD_MB = int(os.getenv("MAX_MUSIC_UPLOAD_MB", "25"))
 _model_lock = threading.Lock()
 
 
