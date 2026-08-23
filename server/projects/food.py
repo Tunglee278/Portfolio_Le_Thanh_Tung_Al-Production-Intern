@@ -12,9 +12,25 @@ from pymongo.errors import PyMongoError
 food_blueprint = Blueprint("food", __name__, url_prefix="/v1/food")
 
 
+def _mongo_uri() -> str:
+    """Accept a plain URI or a value copied from a shell assignment."""
+    value = os.getenv("MONGO_URI", "").strip()
+    lowered = value.lower()
+
+    for prefix in ("$env:mongo_uri=", "mongo_uri="):
+        if lowered.startswith(prefix):
+            value = value[len(prefix):].strip()
+            break
+
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in {"'", '"'}:
+        value = value[1:-1].strip()
+
+    return value
+
+
 @lru_cache(maxsize=1)
 def _database():
-    mongo_uri = os.getenv("MONGO_URI")
+    mongo_uri = _mongo_uri()
     if not mongo_uri:
         raise RuntimeError("MONGO_URI is not configured.")
     client = MongoClient(
