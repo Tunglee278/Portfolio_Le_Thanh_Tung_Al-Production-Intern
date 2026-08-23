@@ -1,0 +1,26 @@
+.venv/
+.vscode/
+
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+
+# JavaScript build output
+node_modules/
+.next/
+.vinext/
+dist/
+next-env.d.ts
+
+# Python cache and local runtime files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Generated assets and logs
+social-card-output/
+*.log
+
+# Nested frontend repository metadata is kept local
+client/.git/
