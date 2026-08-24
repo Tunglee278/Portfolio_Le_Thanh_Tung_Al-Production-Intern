@@ -12,9 +12,9 @@ const education = [
 ];
 
 const experience = [
-  { year: '2026', title: 'AI Speech Pipeline', detail: 'Built a video-to-SRT product with Faster-Whisper, Flask and FFmpeg.' },
-  { year: '2026', title: 'Food Data Warehouse', detail: 'Connected MongoDB commerce data to a live analytics API and dashboard.' },
-  { year: '2025', title: 'Music Genre Classifier', detail: 'Engineered MFCC features and deployed a Random Forest audio classifier.' },
+  { year: '2026', title: 'AI Speech Pipeline', detail: 'Built a video-to-SRT product with Faster-Whisper, Flask and FFmpeg.', href: 'https://github.com/Tunglee278/ai-speech-subtitles' },
+  { year: '2026', title: 'Food Data Warehouse', detail: 'Connected MongoDB commerce data to a live analytics API and dashboard.', href: 'https://github.com/Tunglee278/food-ordering-system' },
+  { year: '2025', title: 'Music Genre Classifier', detail: 'Engineered MFCC features and deployed a Random Forest audio classifier.', href: 'https://github.com/Tunglee278/music-genre-classification' },
 ];
 
 export default function Home() {
@@ -62,7 +62,7 @@ export default function Home() {
               <div className="experiencePanelHeader">
                 <h2 className="resumeSectionLabel dark">Selected experience</h2>
               </div>
-              {experience.map((item) => <article key={item.title}><span>✦</span><strong>{item.year}</strong><div><h3>{item.title}</h3><p>{item.detail}</p></div></article>)}
+              {experience.map((item) => <article key={item.title}><span>✦</span><strong>{item.year}</strong><div><h3><a className="experienceTitleLink" href={item.href} target="_blank" rel="noreferrer" aria-label={`Open ${item.title} repository on GitHub`}>{item.title}<span aria-hidden="true">↗</span></a></h3><p>{item.detail}</p></div></article>)}
               <div className="experienceGithubRow">
                 <a className="githubProfilePill" href="https://github.com/Tunglee278" target="_blank" rel="noreferrer" aria-label="Open Le Thanh Tung's GitHub profile">
                   <span className="githubSearchIcon" aria-hidden="true" />
