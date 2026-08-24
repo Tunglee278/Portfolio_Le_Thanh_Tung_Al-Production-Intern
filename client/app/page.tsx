@@ -33,8 +33,7 @@ export default function Home() {
       <nav className="portfolioHeader" aria-label="Primary navigation">
         <div className="shell portfolioNav">
           <a className="portfolioBrand" href="#top" aria-label="Le Thanh Tung, home"><span aria-hidden="true">✦</span> Le Thanh Tung</a>
-          <div className="portfolioLinks"><a href="#resume">Resume</a><a href="#work">Work</a><a href="#live-demos">Live demos</a><a href="#skills">Skills</a><a href="#about">About</a></div>
-          <a className="navContact" href="mailto:tunglee278@gmail.com">Get in touch!</a>
+          <div className="portfolioLinks"><a href="#top">About</a><a href="#resume">Resume</a><a href="#work">Work</a><a href="#live-demos">Live demos</a></div>
         </div>
       </nav>
 
@@ -46,6 +45,12 @@ export default function Home() {
           <div className="resumeHeroActions">
             <a href="#work">Explore selected work <span aria-hidden="true">↘</span></a>
             <a href="/Le-Thanh-Tung-CV.pdf" download>Download CV</a>
+          </div>
+          <div className="aboutFacts" aria-label="Basic information">
+            <span><small>EDUCATION</small>Information Technology · HUMG</span>
+            <span><small>LOCATION</small>Hanoi, Vietnam</span>
+            <span><small>FOCUS</small>Applied AI systems</span>
+            <span><small>LANGUAGE</small>Vietnamese · Technical English</span>
           </div>
         </div>
         <div className="resumeHeroVisual" aria-label="AI engineering profile">
@@ -69,10 +74,12 @@ export default function Home() {
               <div className="strengthTags"><span>#Curious</span><span>#Practical</span><span>#Detail-oriented</span><span>#Adaptable</span></div>
             </section>
           </div>
-          <div className="resumeSkillsPanel">
+          <div className="resumeSkillsPanel" id="technical-skills">
             <div className="resumeOutline" aria-hidden="true">AI<br />ENGINEER</div>
             <p className="resumeSectionLabel">Technical skills</p>
-            <div className="skillColumns"><div><h3>AI / ML</h3><p>Machine Learning</p><p>Speech Recognition</p><p>Computer Vision</p><p>NLP · RAG · LLMs</p></div><div><h3>Engineering</h3><p>Python · JavaScript</p><p>Flask REST API</p><p>React · Next.js</p><p>Docker · Git</p></div></div>
+            <div className="technicalSkillMatrix">
+              {skillGroups.map((group, index) => <article key={group.label}><span>0{index + 1}</span><h3>{group.label}</h3><div>{group.items.map((item) => <p key={item}>{item}</p>)}</div></article>)}
+            </div>
             <div className="servicePills"><span>Model deployment</span><span>Data pipelines</span><span>API integration</span><span>AI prototyping</span></div>
           </div>
         </div>
@@ -121,17 +128,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section skillSection" id="skills"><div className="shell">
-        <div className="sectionHeading compact"><div><p className="eyebrow">TECHNICAL TOOLKIT</p><h2>Ideas are only useful<br />when they ship.</h2></div><p>From experimentation and data pipelines to APIs and user-facing experiences.</p></div>
-        <div className="skillGrid">{skillGroups.map((group, index) => <article className="skillGroup" key={group.label}><span className="skillIndex">0{index + 1}</span><h3>{group.label}</h3><div className="skillList">{group.items.map((item) => <span key={item}>{item}</span>)}</div></article>)}</div>
-      </div></section>
-
-      <section className="section shell about" id="about">
-        <div className="aboutLead"><p className="eyebrow">ABOUT / EDUCATION</p><h2>Curious by nature.<br /><span>Practical by design.</span></h2></div>
-        <div className="aboutCopy"><p>I enjoy the full journey of an AI product: understanding the problem, preparing data, evaluating a model, designing an API and making the result useful to real people.</p><p>Currently studying <strong>Information Technology</strong> at Hanoi University of Mining and Geology (2022—2027), while continuously building personal AI projects.</p><div className="factRow"><span><small>FOCUS</small>Applied AI systems</span><span><small>LANGUAGE</small>Vietnamese · Technical English</span><span><small>AWARD</small>School-level English prize, 2023</span></div></div>
-      </section>
-
-      <footer><div className="shell footerInner"><div><p className="eyebrow">START A CONVERSATION</p><h2>Have an AI problem<br />worth solving?</h2></div><a className="email" href="mailto:tunglee278@gmail.com">tunglee278@gmail.com <span aria-hidden="true">↗</span></a><div className="footerMeta"><span>Le Thanh Tung © 2026</span><a href="tel:+84862747689">+84 862 747 689</a><span>Hanoi, Vietnam</span></div></div></footer>
+      <footer className="compactFooter"><div className="shell compactFooterInner"><span>Le Thanh Tung © 2026</span><a href="mailto:tunglee278@gmail.com">tunglee278@gmail.com</a><span>Hanoi, Vietnam</span></div></footer>
       <BackToTopButton />
     </main>
   );
