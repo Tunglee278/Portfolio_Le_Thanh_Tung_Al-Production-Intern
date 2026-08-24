@@ -1,5 +1,3 @@
-import BackToTopButton from './components/BackToTopButton';
-
 const skillGroups = [
   { label: 'AI / ML', items: ['Machine Learning', 'Computer Vision', 'NLP', 'Speech Recognition', 'RAG', 'LLMs', 'YOLOv8'] },
   { label: 'Engineering', items: ['Python', 'JavaScript', 'SQL', 'Flask REST API', 'ReactJS', 'TailwindCSS', 'Git'] },
@@ -85,7 +83,6 @@ export default function Home() {
       <section className="marquee" aria-label="Areas of expertise"><div><span>SPEECH AI</span><i>✦</i><span>COMPUTER VISION</span><i>✦</i><span>RAG SYSTEMS</span><i>✦</i><span>MODEL DEPLOYMENT</span><i>✦</i><span>DATA ENGINEERING</span><i>✦</i></div></section>
 
       <footer className="compactFooter"><div className="shell compactFooterInner"><span>Le Thanh Tung © 2026</span><a href="mailto:tunglee278@gmail.com">tunglee278@gmail.com</a><span>Hanoi, Vietnam</span></div></footer>
-      <BackToTopButton />
     </main>
   );
 }
