@@ -62,7 +62,7 @@ export default function Home() {
               <div className="experiencePanelHeader">
                 <h2 className="resumeSectionLabel dark">Selected experience</h2>
               </div>
-              {experience.map((item) => <article key={item.title}><span>✦</span><strong>{item.year}</strong><div><h3><a className="experienceTitleLink" href={item.href} target="_blank" rel="noreferrer" aria-label={`Open ${item.title} repository on GitHub`}>{item.title}<span aria-hidden="true">↗</span></a></h3><p>{item.detail}</p></div></article>)}
+              {experience.map((item) => <article key={item.title}><span>✦</span><strong>{item.year}</strong><div><h3><a className="experienceTitleLink" href={item.href} target="_blank" rel="noreferrer" aria-label={`Open ${item.title} repository on GitHub`}>{item.title}</a></h3><p>{item.detail}</p></div></article>)}
               <div className="experienceGithubRow">
                 <a className="githubProfilePill" href="https://github.com/Tunglee278" target="_blank" rel="noreferrer" aria-label="Open Le Thanh Tung's GitHub profile">
                   <span className="githubSearchIcon" aria-hidden="true" />
