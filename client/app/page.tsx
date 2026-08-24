@@ -16,29 +16,67 @@ const skillGroups = [
   { label: 'Data / Infra', items: ['NumPy', 'Pandas', 'OpenCV', 'MySQL', 'SQLite', 'MongoDB', 'MQTT'] },
 ];
 
+const education = [
+  { year: '2022—2027', title: 'Hanoi University of Mining and Geology', detail: 'Information Technology · Engineer programme' },
+  { year: '2023', title: 'School-level English Prize', detail: 'Recognition for English communication and academic performance' },
+];
+
+const experience = [
+  { year: '2026', title: 'AI Speech Pipeline', detail: 'Built a video-to-SRT product with Faster-Whisper, Flask and FFmpeg.' },
+  { year: '2026', title: 'Food Data Warehouse', detail: 'Connected MongoDB commerce data to a live analytics API and dashboard.' },
+  { year: '2025', title: 'Music Genre Classifier', detail: 'Engineered MFCC features and deployed a Random Forest audio classifier.' },
+];
+
 export default function Home() {
   return (
     <main>
-      <nav className="navWrap" aria-label="Primary navigation">
-        <div className="nav shell">
-          <a className="brand" href="#top" aria-label="Le Thanh Tung, home">LT<span>²</span></a>
-          <div className="navLinks"><a href="#work">Work</a><a href="#subtitle-demo">Speech demo</a><a href="#live-demos">More demos</a><a href="#skills">Skills</a><a href="#about">About</a></div>
+      <nav className="portfolioHeader" aria-label="Primary navigation">
+        <div className="shell portfolioNav">
+          <a className="portfolioBrand" href="#top" aria-label="Le Thanh Tung, home"><span aria-hidden="true">✦</span> Le Thanh Tung</a>
+          <div className="portfolioLinks"><a href="#resume">Resume</a><a href="#work">Work</a><a href="#live-demos">Live demos</a><a href="#skills">Skills</a><a href="#about">About</a></div>
+          <a className="navContact" href="mailto:tunglee278@gmail.com">Get in touch!</a>
         </div>
       </nav>
 
-      <header className="hero shell" id="top">
-        <div className="heroSignal" aria-hidden="true"><span className="signalDot" /> Available for AI opportunities</div>
-        <p className="eyebrow">AI ENGINEER · HANOI, VIETNAM</p>
-        <h1>I build AI that<br /><span>moves into production.</span></h1>
-        <div className="heroBottom">
-          <p className="intro">I’m <strong>Le Thanh Tung</strong> — an AI engineer turning machine learning ideas into practical, end-to-end products across speech, vision, data and language.</p>
-          <div className="heroActions">
-            <a className="button buttonPrimary" href="#work">Explore my work <span aria-hidden="true">↓</span></a>
-            <a className="button buttonGhost" href="/Le-Thanh-Tung-CV.pdf" download>Download CV</a>
+      <header className="resumeHero shell" id="top">
+        <div className="resumeHeroCopy">
+          <p className="resumeKicker">AI production portfolio · 2026</p>
+          <h1>Hello,<br />I’m <em>Le Thanh Tung!</em></h1>
+          <p>I turn machine-learning ideas into useful products — from speech recognition and audio classification to data APIs and live analytics.</p>
+          <div className="resumeHeroActions">
+            <a href="#work">Explore selected work <span aria-hidden="true">↘</span></a>
+            <a href="/Le-Thanh-Tung-CV.pdf" download>Download CV</a>
           </div>
         </div>
-        <div className="heroOrb" aria-hidden="true"><div className="orbCore" /><div className="orbit orbitOne" /><div className="orbit orbitTwo" /><span className="node nodeOne" /><span className="node nodeTwo" /><span className="node nodeThree" /></div>
+        <div className="resumeHeroVisual" aria-label="AI engineering profile">
+          <div className="profileCanvas"><span>AI</span><strong>MODEL → API → PRODUCT</strong><i>LT</i></div>
+          <span className="profileBadge badgeRole">AI Engineer</span>
+          <span className="profileBadge badgeLocation">Hanoi, Vietnam</span>
+          <aside className="heroContactCard"><h2>Contact</h2><p>● Hanoi, Vietnam</p><a href="mailto:tunglee278@gmail.com">✉ tunglee278@gmail.com</a><a href="tel:+84862747689">☎ +84 862 747 689</a></aside>
+        </div>
       </header>
+
+      <section className="resumeBand" id="resume">
+        <div className="shell resumeGrid">
+          <div>
+            <p className="resumeSectionLabel">Education</p>
+            <div className="resumeTimeline">
+              {education.map((item) => <article key={item.year}><span>✦</span><strong>{item.year}</strong><div><h3>{item.title}</h3><p>{item.detail}</p></div></article>)}
+            </div>
+            <section className="experiencePanel" id="work-intro">
+              <p className="resumeSectionLabel dark">Selected experience</p>
+              {experience.map((item) => <article key={item.title}><span>✦</span><strong>{item.year}</strong><div><h3>{item.title}</h3><p>{item.detail}</p></div></article>)}
+              <div className="strengthTags"><span>#Curious</span><span>#Practical</span><span>#Detail-oriented</span><span>#Adaptable</span></div>
+            </section>
+          </div>
+          <div className="resumeSkillsPanel">
+            <div className="resumeOutline" aria-hidden="true">AI<br />ENGINEER</div>
+            <p className="resumeSectionLabel">Technical skills</p>
+            <div className="skillColumns"><div><h3>AI / ML</h3><p>Machine Learning</p><p>Speech Recognition</p><p>Computer Vision</p><p>NLP · RAG · LLMs</p></div><div><h3>Engineering</h3><p>Python · JavaScript</p><p>Flask REST API</p><p>React · Next.js</p><p>Docker · Git</p></div></div>
+            <div className="servicePills"><span>Model deployment</span><span>Data pipelines</span><span>API integration</span><span>AI prototyping</span></div>
+          </div>
+        </div>
+      </section>
 
       <section className="marquee" aria-label="Areas of expertise"><div><span>SPEECH AI</span><i>✦</i><span>COMPUTER VISION</span><i>✦</i><span>RAG SYSTEMS</span><i>✦</i><span>MODEL DEPLOYMENT</span><i>✦</i><span>DATA ENGINEERING</span><i>✦</i></div></section>
 
